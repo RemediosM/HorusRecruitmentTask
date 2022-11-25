@@ -13,7 +13,10 @@ class WallTest {
     Block block1;
     Block block2;
     Block block3;
+    Block block4;
+    Block block5;
     CompositeBlock compositeBlock;
+    CompositeBlock compositeBlock1;
     Wall wall;
 
     @BeforeEach
@@ -21,15 +24,18 @@ class WallTest {
         block1 = new BlockImpl("red","marble");
         block2 = new BlockImpl("blue", "concrete");
         block3 = new BlockImpl("green", "stone");
-        compositeBlock = new CompositeBlockImpl(List.of(block1, block2));
+        block4 = new BlockImpl("pink", "wood");
+        block5 = new BlockImpl("purple", "glass");
+        compositeBlock1 = new CompositeBlockImpl(List.of(block4, block5));
+        compositeBlock = new CompositeBlockImpl(List.of(compositeBlock1, block1, block2));
         wall = new Wall(List.of(compositeBlock, block3));
     }
 
     @Test
     void findBlockByColor_color_exists_in_wall() {
-        Optional<Block> testBlock = wall.findBlockByColor("red");
+        Optional<Block> testBlock = wall.findBlockByColor("pink");
 
-        assertEquals(block1, testBlock.isPresent() ? testBlock.get() : Optional.empty());
+        assertEquals(block4, testBlock.isPresent() ? testBlock.get() : Optional.empty());
     }
 
     @Test
@@ -89,7 +95,7 @@ class WallTest {
     void count_wall_is_not_empty() {
         int blocksCount = wall.count();
 
-        assertEquals(3, blocksCount);
+        assertEquals(5, blocksCount);
     }
 
     @Test
